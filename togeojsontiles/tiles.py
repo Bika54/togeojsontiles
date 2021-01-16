@@ -3,7 +3,7 @@ import os
 import fnmatch
 
 
-def gpx_to_geojson(file_gpx, file_geojson):
+def gpx_to_geojson(file_gpx, file_geojson=None):
     args = ['togeojson', file_gpx]
     try:
         output = subprocess.check_output(args)
@@ -11,9 +11,11 @@ def gpx_to_geojson(file_gpx, file_geojson):
         print(e)
         raise
 
+    if not file_geojson:
+        return output.decode('utf-8')
+
     with open(file_geojson, 'w') as fileout:
         fileout.write(output.decode('utf-8'))
-        print(file_geojson + ' created!')
 
 
 def geojson_to_mbtiles(
