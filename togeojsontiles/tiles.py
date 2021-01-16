@@ -1,7 +1,7 @@
 import subprocess
 import os
 import fnmatch
-
+import json
 
 def gpx_to_geojson(file_gpx, file_geojson=None):
     args = ['togeojson', file_gpx]
@@ -12,7 +12,7 @@ def gpx_to_geojson(file_gpx, file_geojson=None):
         raise
 
     if not file_geojson:
-        return output.decode('utf-8')
+        return json.loads(output.decode('utf-8'))
 
     with open(file_geojson, 'w') as fileout:
         fileout.write(output.decode('utf-8'))
